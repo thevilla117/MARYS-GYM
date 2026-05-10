@@ -1,17 +1,37 @@
 {
-  "name": "MAR'S GYM | Premium",
+  "id": "marys-gym-premium-v1",
+  "name": "MAR'S GYM | Sistema de Gestión",
   "short_name": "MAR'S GYM",
-  "description": "Panel de Control de MAR'S GYM - Sistema de gestión de gimnasio",
+  "description": "Panel de Control profesional de MAR'S GYM - Sistema integral de gestión de gimnasio con dashboard, asistencia, pagos e historial",
   "start_url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/",
   "scope": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#0A0E17",
   "theme_color": "#FFB300",
   "lang": "es-CO",
   "dir": "ltr",
   "categories": ["business", "productivity", "health"],
+  "prefer_related_applications": false,
   "icons": [
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-64.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-192.png",
       "sizes": "192x192",
@@ -25,28 +45,4 @@
       "purpose": "any"
     },
     {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ]
-}
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-3
