@@ -10,11 +10,11 @@ import hashlib
 
 # Configuración de la página
 
-st.set_page_config(page_title="MARY'S GYM | Premium", page_icon="static/icon-192.png", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="MAR'S GYM | Premium", page_icon="Logo GYM.png", layout="wide", initial_sidebar_state="collapsed")
 
 # === Meta tags PWA (instalable como app) ===
 st.markdown("""
-<link rel="manifest" href="/app/static/manifest.json">
+<link rel="manifest" href="/static/manifest.json">
 <meta name="theme-color" content="#FFB300">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,10 +22,14 @@ st.markdown("""
 <meta name="apple-mobile-web-app-title" content="MARY'S GYM">
 <meta name="application-name" content="MARY'S GYM">
 <meta name="msapplication-TileColor" content="#0A0E17">
-<link rel="apple-touch-icon" sizes="192x192" href="/app/static/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="/app/static/icon-512.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/app/static/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/app/static/icon-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/static/icon-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/static/icon-512.png">
+<link rel="shortcut icon" type="image/png" href="/static/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/static/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/static/icon-512.png">
 """, unsafe_allow_html=True)
 
 # Estilos CSS Avanzados (Mejorados)
@@ -1011,15 +1015,15 @@ except FileNotFoundError:
     logo_base64 = ""
 
 # Header
-st.markdown(f'''
-<div class="header-container">
-    <div>
-        {f'<img src="data:image/png;base64,{logo_base64}" width="220" class="logo-glow" />' if logo_base64 else ''}
-        <div class="header-title">MARY\'S GYM</div>
-        <div class="header-subtitle">Panel de Control Premium</div>
-    </div>
-</div>
-''', unsafe_allow_html=True)
+logo_img_html = f'<img src="data:image/png;base64,{logo_base64}" width="220" class="logo-glow" />' if logo_base64 else ""
+st.markdown(
+    '<div class="header-container"><div>'
+    + logo_img_html
+    + '<div class="header-title">MARY&#39;S GYM</div>'
+    + '<div class="header-subtitle">Panel de Control Premium</div>'
+    + '</div></div>',
+    unsafe_allow_html=True
+)
 
 # Botón de Cerrar Sesión
 col_logout1, col_logout2 = st.columns([5, 1])
