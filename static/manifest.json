@@ -1,137 +1,25 @@
 {
-  "id": "marys-gym-premium-v1",
-  "name": "MAR'S GYM | Sistema de Gestión",
   "short_name": "MAR'S GYM",
-  "description": "Panel de Control profesional de MAR'S GYM - Sistema integral de gestión de gimnasio con dashboard, asistencia, pagos e historial",
-  "start_url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/",
-  "scope": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/",
-  "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#0A0E17",
-  "theme_color": "#FFB300",
-  "lang": "es-CO",
-  "dir": "ltr",
-  "categories": ["business", "productivity", "health"],
-  "prefer_related_applications": false,
+  "name": "MAR'S GYM | Premium",
   "icons": [
     {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-32.png",
-      "sizes": "32x32",
+      "src": "favicon_512.png",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-64.png",
-      "sizes": "64x64",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-180.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-256.png",
-      "sizes": "256x256",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "sizes": "512x512"
     }
   ],
-  "screenshots": [
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/screenshot-540.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/screenshot-1280.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Dashboard",
-      "short_name": "Dashboard",
-      "description": "Accede al panel principal",
-      "url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/?page=dashboard",
-      "icons": [
-        {
-          "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon_dashboard.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Asistencia",
-      "short_name": "Asistencia",
-      "description": "Registra asistencia",
-      "url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/?page=attendance",
-      "icons": [
-        {
-          "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon_attendance.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Pagos",
-      "short_name": "Pagos",
-      "description": "Gestiona pagos",
-      "url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/?page=payments",
-      "icons": [
-        {
-          "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon_payments.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    }
-  ],
-  "share_target": {
-    "action": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ffb300",
+  "background_color": "#0a0e17",
+  "id": "marys-gym-premium",
+  "description": "Sistema de gestión de gimnasio con dashboard, asistencia, pagos e historial",
+  "dir": "ltr",
+  "lang": "es",
+  "orientation": "portrait-primary",
+  "categories": [
+    "business",
+    "health",
+    "productivity"
+  ]
 }
