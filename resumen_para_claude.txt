@@ -1,0 +1,51 @@
+# RESUMEN DEL PROYECTO "MARY'S GYM" PARA CLAUDE
+
+Hola Claude, este es un resumen completo del estado actual del proyecto para que me ayudes a solucionar los errores de sintaxis y terminar la app.
+
+## 1. OBJETIVO DEL PROYECTO
+Es una aplicación de administración para un gimnasio pequeño en Colombia ("MARY'S GYM").
+La app permite:
+- Registrar clientes.
+- Registrar pagos (con diferentes planes: Rutina, Semana, Quincena, Mensual).
+- Controlar asistencia (los clientes marcan su asistencia ingresando su nombre).
+- Ver historiales de pagos y asistencia.
+- Gestión de usuarios (Súper Admin y Admin).
+- Gestión de tarifas dinámicas.
+
+## 2. TECNOLOGÍA UTILIZADA
+- **Frontend/Backend**: Python con **Streamlit**.
+- **Base de Datos**: **Supabase** (en la nube) mediante peticiones HTTP REST (con la librería `requests`). Ya no usamos SQLite.
+
+## 3. CREDENCIALES DE SUPABASE (YA CONFIGURADAS)
+- **URL**: https://zmvrfdtacxdudjmiswka.supabase.co
+- **API Key**: sb_publishable__w3Thfledx3ORdNHxCigrw_WjyShcDg
+
+## 4. BASE DE DATOS (TABLAS EN SUPABASE)
+Ya ejecutamos el código SQL en Supabase y las tablas están creadas:
+1. `clientes`: Datos de los clientes.
+2. `pagos`: Registro de ingresos.
+3. `asistencia`: Registro de entradas.
+4. `usuarios`: Para el Login (Villa es el Súper Admin).
+5. `tarifas`: Para que los precios no estén fijos en el código.
+
+## 5. USUARIO SÚPER ADMINISTRADOR CREADO
+- **Usuario**: villa
+- **Clave original**: eltirano123
+- **Clave encriptada en BD**: a7720f55e968b79c0ef7f49f95c539c923227ef1ed0980002738242f28ce5ec1
+
+## 6. ¿QUÉ SE HA HECHO EN EL ARCHIVO app.py?
+- Se conectó todo a Supabase reemplazando las consultas SQLite por peticiones REST.
+- Se implementó un sistema de Login al inicio (guarda estado en session_state).
+- Se crearon roles: el usuario `villa` es `super_admin` y puede ver la pestaña "CONFIGURACIÓN".
+- Se hicieron las tarifas dinámicas (se leen de la tabla `tarifas` de Supabase).
+- Se agregaron formularios para crear usuarios y editar tarifas en la pestaña de Configuración.
+
+## 7. EL PROBLEMA ACTUAL (ERRORES DE SINTAXIS)
+La app está fallando repetidamente con errores de sintaxis (`SyntaxError`) al intentar correrla en Windows en esta computadora.
+Los errores principales han sido:
+1. `invalid decimal literal` en las líneas donde intentamos formatear los números de las tarifas dentro de textos HTML en f-strings (ejemplo: `{tarifas["Normal"]["Rutina"]:,.0f}`). Intentamos cambiarlo a `format(int(...), ",")` pero a veces el parser se sigue quejando.
+2. `invalid character` con algunos emojis. Windows no lee bien los emojis en el código fuente de Python en esta computadora. Intentamos quitarlos pero revisa si queda alguno en los strings.
+3. `unterminated triple-quoted string literal`. Hay bloques de HTML largos que usan `'''` o `"""` y parece que Python se pierde y piensa que no están cerrados en el archivo (marca el error al final del archivo en la línea 1240).
+
+## TU MISIÓN, CLAUDE:
+Revisa el archivo `app.py` completo. Limpia todos los errores de sintaxis relacionados con comillas (`'''` o `"""`), f-strings complejos y caracteres especiales (emojis). Asegúrate de que el código sea válido para Python en Windows y que mantenga toda la lógica de conexión a Supabase, el Login y las pestañas que ya funcionan.
