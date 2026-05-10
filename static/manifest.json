@@ -45,4 +45,93 @@
       "purpose": "any"
     },
     {
-      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-3
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/screenshot-540.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/screenshot-1280.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Accede al panel principal",
+      "url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/?page=dashboard",
+      "icons": [
+        {
+          "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon_dashboard.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Asistencia",
+      "short_name": "Asistencia",
+      "description": "Registra asistencia",
+      "url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/?page=attendance",
+      "icons": [
+        {
+          "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon_attendance.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Pagos",
+      "short_name": "Pagos",
+      "description": "Gestiona pagos",
+      "url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/?page=payments",
+      "icons": [
+        {
+          "src": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/static/icon_payments.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

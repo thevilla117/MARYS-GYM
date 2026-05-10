@@ -1590,3 +1590,40 @@ if st.session_state.user_role == 'super_admin':
         usuarios = supabase_request("GET", "usuarios", params={"select": "username,rol"})
         if usuarios:
             df_users = pd.DataFrame(usuarios)
+            st.dataframe(df_users, use_container_width=True)
+            
+        st.markdown("---")
+        st.subheader("Gestión de Tarifas")
+        tarifas = get_tarifas()
+        
+        col_t1, col_t2 = st.columns(2)
+        
+        with col_t1:
+            st.markdown("### Plan Normal")
+            with st.form("tarifas_normal_form"):
+                rutina_n = st.number_input("Rutina", value=float(tarifas["Normal"]["Rutina"]))
+                semana_n = st.number_input("Semana", value=float(tarifas["Normal"]["Semana"]))
+                quincena_n = st.number_input("Quincena", value=float(tarifas["Normal"]["Quincena"]))
+                mensual_n = st.number_input("Mensual", value=float(tarifas["Normal"]["Mensual"]))
+                submit_tn = st.form_submit_button("ACTUALIZAR NORMAL")
+                
+                if submit_tn:
+                    for plan, monto in [("Rutina", rutina_n), ("Semana", semana_n), ("Quincena", quincena_n), ("Mensual", mensual_n)]:
+                        supabase_request("PATCH", "tarifas", params={"categoria": "eq.Normal", "plan_tipo": f"eq.{plan}"}, json_data={"monto": monto})
+                    st.success("¡Tarifas normales actualizadas!")
+                    st.rerun()
+                    
+        with col_t2:
+            st.markdown("### Con Entrenadora")
+            with st.form("tarifas_entrenadora_form"):
+                rutina_e = st.number_input("Rutina", value=float(tarifas["Con Entrenadora"]["Rutina"]))
+                semana_e = st.number_input("Semana", value=float(tarifas["Con Entrenadora"]["Semana"]))
+                quincena_e = st.number_input("Quincena", value=float(tarifas["Con Entrenadora"]["Quincena"]))
+                mensual_e = st.number_input("Mensual", value=float(tarifas["Con Entrenadora"]["Mensual"]))
+                submit_te = st.form_submit_button("ACTUALIZAR ENTRENADORA")
+                
+                if submit_te:
+                    for plan, monto in [("Rutina", rutina_e), ("Semana", semana_e), ("Quincena", quincena_e), ("Mensual", mensual_e)]:
+                        supabase_request("PATCH", "tarifas", params={"categoria": "eq.Con Entrenadora", "plan_tipo": f"eq.{plan}"}, json_data={"monto": monto})
+                    st.success("¡Tarifas con entrenadora actualizadas!")
+                    st.rerun()
