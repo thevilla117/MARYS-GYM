@@ -1,7 +1,7 @@
 {
-  "name": "MARY'S GYM | Premium",
-  "short_name": "MARY'S GYM",
-  "description": "Panel de Control de MARY'S GYM - Sistema de gestión de gimnasio",
+  "name": "MAR'S GYM | Premium",
+  "short_name": "MAR'S GYM",
+  "description": "Panel de Control de MAR'S GYM - Sistema de gestión de gimnasio",
   "start_url": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/",
   "scope": "https://marys-gym-lbjrnkbifnax46gxclzm8u.streamlit.app/",
   "display": "standalone",
