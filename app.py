@@ -1351,6 +1351,11 @@ with tab_gest:
     
     df_clientes = get_clientes()
     if not df_clientes.empty:
+        df_clientes = df_clientes[df_clientes['plan_actual'].isin(['Semana', 'Quincena', 'Mensual'])]
+        
+    if df_clientes.empty:
+        st.info("No hay clientes con planes de Semana, Quincena o Mensual para gestionar.")
+    else:
         nombres_clientes = sorted(df_clientes['nombre'].tolist())
         cliente_sel = st.selectbox("Seleccionar Cliente para Editar", nombres_clientes)
         
@@ -1419,8 +1424,6 @@ with tab_gest:
                     supabase_request("PATCH", "pagos", params={"id": f"eq.{int(pago_id)}"}, json_data={"monto": nuevo_monto, "notas": novedad})
                 st.success(f"¡Cliente {cliente_info['nombre']} eliminado y pago ajustado!")
                 st.rerun()
-    else:
-        st.info("No hay clientes registrados.")
 
 with tab_hist:
     st.markdown(f'<div class="tab-icon-header"><img src="data:image/png;base64,{get_base64("icon_history.png")}" width="60"></div>', unsafe_allow_html=True)
