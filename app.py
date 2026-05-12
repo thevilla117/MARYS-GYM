@@ -855,12 +855,26 @@ def calcular_vencimiento(fecha_inicio, plan_tipo):
         return vencimiento.date()
     return fecha_inicio
 
-def registrar_pago(nombre, telefono, plan_tipo, con_entrenadora, metodo_pago):
+def registrar_pago(nombre, telefono, plan_tipo, con_entrenadora, metodo_pago, modo_historico=False, fecha_pago=None, fecha_venc_custom=None, monto_custom=None):
     hoy = str(datetime.date.today())
     categoria = "Con Entrenadora" if con_entrenadora else "Normal"
     tarifas = get_tarifas()
-    monto = tarifas[categoria][plan_tipo]
-    vencimiento = str(calcular_vencimiento(datetime.date.today(), plan_tipo))
+    
+    # Use custom amount if in historical mode and provided
+    if modo_historico and monto_custom:
+        monto = monto_custom
+    else:
+        monto = tarifas[categoria][plan_tipo]
+        
+    # Use historical dates or today's dates
+    fecha_del_pago = fecha_pago if modo_historico and fecha_pago else hoy
+    
+    if modo_historico and fecha_venc_custom:
+        vencimiento = fecha_venc_custom
+    else:
+        # Calculate expiration based on the payment date
+        fecha_base = datetime.datetime.strptime(fecha_del_pago, "%Y-%m-%d").date() if modo_historico and fecha_pago else datetime.date.today()
+        vencimiento = str(calcular_vencimiento(fecha_base, plan_tipo))
     
     # Buscar cliente
     params = {"nombre": f"eq.{nombre}", "select": "id"}
@@ -870,7 +884,7 @@ def registrar_pago(nombre, telefono, plan_tipo, con_entrenadora, metodo_pago):
         cliente_id = clientes[0]['id']
         # Update
         json_data = {
-            "fecha_ultimo_pago": hoy,
+            "fecha_ultimo_pago": fecha_del_pago,
             "fecha_vencimiento": vencimiento,
             "telefono": telefono,
             "plan_actual": plan_tipo,
@@ -882,7 +896,7 @@ def registrar_pago(nombre, telefono, plan_tipo, con_entrenadora, metodo_pago):
         json_data = {
             "nombre": nombre,
             "telefono": telefono,
-            "fecha_ultimo_pago": hoy,
+            "fecha_ultimo_pago": fecha_del_pago,
             "fecha_vencimiento": vencimiento,
             "plan_actual": plan_tipo,
             "con_entrenadora": con_entrenadora
@@ -897,7 +911,7 @@ def registrar_pago(nombre, telefono, plan_tipo, con_entrenadora, metodo_pago):
     pago_data = {
         "cliente_id": cliente_id,
         "monto": monto,
-        "fecha": hoy,
+        "fecha": fecha_del_pago,
         "plan_tipo": plan_tipo,
         "metodo_pago": metodo_pago,
         "con_entrenadora": con_entrenadora
@@ -1109,7 +1123,8 @@ with tab_dash:
                 st.markdown(f'<div class="client-card"><div><div class="client-name">{row["nombre"]}</div><div class="badge-plan">{row["plan_actual"]}</div><div class="client-info">Vence: <span class="highlight">{row["fecha_vencimiento"]}</span> <span class="days-badge">{row["Dias_Restantes"]} días</span></div></div><div><span class="badge badge-warning">Alerta</span></div></div>', unsafe_allow_html=True)
                 
                 if row['telefono']:
-                    tel_limpio = "".join(filter(str.isdigit, row['telefono']))
+                    digitos = "".join(filter(str.isdigit, row['telefono']))
+                    tel_limpio = "57" + digitos if len(digitos) == 10 else digitos
                     msg = f"Hola {row['nombre']}, te recordamos que tu plan en MARY'S GYM está por vencer. ¡Te esperamos!"
                     link = f"https://wa.me/{tel_limpio}?text={msg.replace(' ', '%20')}"
                     st.markdown(f'<div style="text-align: right; margin-top: 5px;"><a href="{link}" target="_blank" class="wa-link">💬 WhatsApp</a></div>', unsafe_allow_html=True)
@@ -1121,7 +1136,8 @@ with tab_dash:
                 st.markdown(f'<div class="client-card"><div><div class="client-name">{row["nombre"]}</div><div class="badge-plan">{row["plan_actual"]}</div><div class="client-info">Venció: <span class="highlight">{row["fecha_vencimiento"]}</span> <span class="days-badge">{abs(row["Dias_Restantes"])} días</span></div></div><div><span class="badge badge-expired">Vencido</span></div></div>', unsafe_allow_html=True)
                 
                 if row['telefono']:
-                    tel_limpio = "".join(filter(str.isdigit, row['telefono']))
+                    digitos = "".join(filter(str.isdigit, row['telefono']))
+                    tel_limpio = "57" + digitos if len(digitos) == 10 else digitos
                     msg = f"Hola {row['nombre']}, tu plan en MARY'S GYM ya venció. Te invitamos a renovarlo. ¡Gracias!"
                     link = f"https://wa.me/{tel_limpio}?text={msg.replace(' ', '%20')}"
                     st.markdown(f'<div style="text-align: right; margin-top: 5px;"><a href="{link}" target="_blank" class="wa-link">💬 WhatsApp</a></div>', unsafe_allow_html=True)
@@ -1251,6 +1267,50 @@ with tab_reg:
     
     cliente_sel = st.selectbox("Seleccionar Cliente (para renovar) o 'NUEVO CLIENTE'", nombres_existentes)
     
+    # --- INPUTS OUTSIDE THE FORM FOR DYNAMIC CALCULATION ---
+    modo_historico = st.checkbox("📒 Modo Histórico (Para registros de la libreta)")
+    
+    plan = st.selectbox("Tipo de Plan", ["Rutina", "Semana", "Quincena", "Mensual"])
+    entrenadora = st.checkbox("Con Entrenadora")
+    
+    # Yellow box for price display
+    tarifas = get_tarifas()
+    monto_plan = tarifas["Con Entrenadora" if entrenadora else "Normal"][plan]
+    st.markdown(f'''
+    <div style="background: linear-gradient(135deg, rgba(255, 170, 0, 0.18), rgba(255, 140, 0, 0.12)); 
+                color: #FFAA00; 
+                border: 1px solid rgba(255, 170, 0, 0.4); 
+                padding: 16px 20px; 
+                border-radius: 14px; 
+                text-align: center; 
+                font-weight: 700; 
+                font-size: 1.3rem; 
+                margin-bottom: 20px;
+                box-shadow: 0 0 15px rgba(255, 170, 0, 0.15);">
+        Valor a cobrar: ${format(int(monto_plan), ",")}
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    fecha_pago = str(datetime.date.today())
+    fecha_venc_custom = ""
+    monto_custom = None
+    
+    if modo_historico:
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            fecha_pago_dt = st.date_input("Fecha del Pago", datetime.date.today())
+            fecha_pago = str(fecha_pago_dt)
+        with col2:
+            # Auto-calculate suggested expiration
+            venc_sugerido = calcular_vencimiento(fecha_pago_dt, plan)
+            fecha_venc_dt = st.date_input("Fecha de Vencimiento", venc_sugerido)
+            fecha_venc_custom = str(fecha_venc_dt)
+        with col3:
+            monto_custom_in = st.number_input("Monto Personalizado (Opcional)", min_value=0, value=0)
+            if monto_custom_in > 0:
+                monto_custom = float(monto_custom_in)
+
+    # --- THE FORM ---
     with st.form("registro_pago_form", clear_on_submit=True):
         if cliente_sel == "-- NUEVO CLIENTE --":
             nombre = st.text_input("Nombre del Cliente")
@@ -1262,11 +1322,10 @@ with tab_reg:
             tel_defecto = telefono_para_mostrar(cliente_info['telefono']) if 'telefono' in cliente_info else ""
 
         telefono = st.text_input("Teléfono (10 dígitos, ej: 3001234567)", value=tel_defecto, max_chars=10, placeholder="3001234567")
-        plan = st.selectbox("Tipo de Plan", ["Rutina", "Semana", "Quincena", "Mensual"])
-        entrenadora = st.checkbox("Con Entrenadora")
         metodo = st.selectbox("Método de Pago", ["Efectivo", "Nequi", "Transferencia", "Otro"])
         
-        submit_btn = st.form_submit_button("REGISTRAR PAGO")
+        # Change button text based on mode
+        submit_btn = st.form_submit_button("REGISTRAR PAGO HISTÓRICO" if modo_historico else "REGISTRAR PAGO")
         
         if submit_btn:
             if nombre:
@@ -1274,7 +1333,8 @@ with tab_reg:
                 if telefono and len(telefono_norm) != 12:
                     st.error("El teléfono debe tener 10 dígitos.")
                 else:
-                    registrar_pago(nombre, telefono_norm, plan, entrenadora, metodo)
+                    # Call function with new parameters
+                    registrar_pago(nombre, telefono_norm, plan, entrenadora, metodo, modo_historico, fecha_pago, fecha_venc_custom, monto_custom)
                     st.session_state.success_pago = f"¡Pago registrado para {nombre}!"
                     st.rerun()
             else:
